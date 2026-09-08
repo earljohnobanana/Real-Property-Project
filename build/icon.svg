@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- money bag -->
+  <path d="M60 380 q-20 60 40 90 q60 20 90 -30 q10 -70 -50 -95 z" fill="#f4e6c8" stroke="#1b1b1b" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M70 360 l70 0 l-15 25 l-40 0 z" fill="#f4e6c8" stroke="#1b1b1b" stroke-width="8" stroke-linejoin="round"/>
+  <!-- document -->
+  <path d="M150 120 h250 a10 10 0 0 1 10 10 v320 a10 10 0 0 1 -10 10 h-250 a10 10 0 0 1 -10 -10 v-320 a10 10 0 0 1 10 -10 z" fill="#5aad2b" stroke="#1b1b1b" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M410 130 v320 a10 10 0 0 1 -10 10 h-120 z" fill="#3f8a1f" opacity="0.55"/>
+  <g stroke="#ffffff" stroke-width="14" stroke-linecap="round">
+    <line x1="180" y1="205" x2="360" y2="205"/>
+    <line x1="180" y1="240" x2="360" y2="240"/>
+    <line x1="180" y1="275" x2="330" y2="275"/>
+    <line x1="180" y1="310" x2="360" y2="310"/>
+    <line x1="180" y1="345" x2="300" y2="345"/>
+    <line x1="180" y1="380" x2="340" y2="380"/>
+  </g>
+  <!-- hand -->
+  <path d="M20 95 h95 a12 12 0 0 1 12 12 v18 a26 26 0 0 1 -26 26 h-40 a20 20 0 0 1 -20 -20 z" fill="#f7c9a8" stroke="#1b1b1b" stroke-width="9" stroke-linejoin="round"/>
+  <rect x="8" y="88" width="20" height="70" rx="5" fill="#134b63" stroke="#1b1b1b" stroke-width="8"/>
+  <!-- house -->
+  <g stroke="#1b1b1b" stroke-width="9" stroke-linejoin="round">
+    <rect x="185" y="70" width="120" height="70" fill="#ffffff"/>
+    <path d="M175 72 l70 -50 l70 50 z" fill="#e23b34"/>
+    <rect x="205" y="95" width="26" height="45" fill="#cfe3ea"/>
+    <rect x="262" y="95" width="30" height="30" rx="4" fill="#cfe3ea"/>
+  </g>
+  <!-- pencil (diagonal, polygon based) -->
+  <g stroke="#1b1b1b" stroke-width="8" stroke-linejoin="round">
+    <polygon points="342,428 362,448 472,318 452,298" fill="#e23b34"/>
+    <polygon points="452,298 472,318 486,300 470,286" fill="#ffcf33"/>
+    <polygon points="342,428 362,448 350,462 336,448" fill="#f7c9a8"/>
+    <polygon points="336,448 350,462 344,470 330,462" fill="#1b1b1b"/>
+  </g>
+  <!-- dollar coin -->
+  <circle cx="150" cy="395" r="48" fill="#ffcf33" stroke="#1b1b1b" stroke-width="9"/>
+  <circle cx="150" cy="395" r="33" fill="none" stroke="#1b1b1b" stroke-width="6"/>
+  <text x="150" y="415" font-family="Arial" font-size="52" font-weight="bold" fill="#1b1b1b" text-anchor="middle">$</text>
+</svg>

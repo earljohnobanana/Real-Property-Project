@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Database (sensitive - contains taxpayer data)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs/
+
+# Backup files
+*.bak
+*.bak-*
+
+# Environment / secrets
+.env
+*.env
+
+# Windows shortcuts
+*.url
+
+# Electron builder cache
+build/cache/

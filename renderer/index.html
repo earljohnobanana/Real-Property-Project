@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>RPT Management</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">Real Property Tax<small>Treasurer's Office — Collection System</small></div>
+    <nav class="nav">
+      <button id="nav-new" class="active">New Entry</button>
+      <button id="nav-history">Payment History</button>
+      <button id="nav-reports">Reports</button>
+    </nav>
+    <div class="foot">Offline • Local database<br/>Data auto-backed up daily</div>
+  </aside>
+
+  <main class="main">
+    <!-- NEW / EDIT ENTRY -->
+    <section id="view-entry">
+      <h1 class="page-title" id="entry-title">New Entry</h1>
+      <p class="page-sub">Fill in the blanks. Nothing is saved until you click Save.</p>
+
+      <div class="card">
+        <div class="grid-head">
+          <div><label>Record Type</label>
+            <select id="status">
+              <option value="Payment">Payment</option>
+              <option value="Cancelled">Cancelled</option>
+              <option value="Advance">Advance</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-head" style="margin-top:14px">
+          <div><label>Control No.</label><input id="control_no" data-req/></div>
+          <div><label>Date Remitted</label><input id="date_remitted" type="date" data-req/></div>
+          <div><label>Date Issued</label><input id="date_issued" type="date"/></div>
+          <div><label>Receipt No.</label><input id="receipt_no" data-req/></div>
+          <div><label>Period Covered</label><input id="period_covered" placeholder="e.g. 2026 or 2017-2025" data-req/></div>
+        </div>
+
+        <div id="payment-only">
+        <div class="section-label">Taxpayer</div>
+        <div class="grid-head">
+          <div style="grid-column:span 2"><label>Name of Taxpayer</label>
+            <input id="taxpayer_name" list="taxpayer-list" placeholder="Surname, First name" data-req/>
+            <datalist id="taxpayer-list"></datalist>
+          </div>
+          <div><label>PIN</label><input id="pin"/></div>
+          <div><label>Tax Declaration No.</label><input id="tax_declaration_no"/></div>
+          <div><label>Location</label><input id="location"/></div>
+        </div>
+        <div class="grid-head" style="margin-top:14px">
+          <div><label>Type of Property</label>
+            <select id="property_type">
+              <option value="">--</option><option>AGRI.</option>
+              <option>RES. LAND</option><option>RES. BLDG.</option>
+              <option>COMM.BLG</option><option>COMM.LAND</option>
+              <option>IND.BLG</option><option>IND.LAND</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two" style="margin-top:22px">
+          <div class="panel basic">
+            <div class="ph">BASIC</div>
+            <div class="pb">
+              <div class="subhead">Current Year (2026)</div>
+              <div class="row4">
+                <div><label>Principal</label><input class="amt" id="basic_cy_principal" type="number" step="0.01"/></div>
+                <div><label>Discount (−)</label><input class="amt" id="basic_cy_discount" type="number" step="0.01"/></div>
+                <div><label>Penalty (+)</label><input class="amt" id="basic_cy_penalty" type="number" step="0.01"/></div>
+                <div><label>Net/Total Payment (auto)</label><input class="amt calc" id="basic_cy_net_payment" type="number" step="0.01" readonly tabindex="-1"/></div>
+              </div>
+              <div class="subhead" style="margin-top:14px">Prior Years</div>
+              <div class="row3">
+                <div><label>Principal</label><input class="amt" id="basic_py_principal" type="number" step="0.01"/></div>
+                <div><label>Penalty</label><input class="amt" id="basic_py_penalty" type="number" step="0.01"/></div>
+              </div>
+              <input type="hidden" id="basic_py_total"/>
+              <div class="panel-total"><span>BASIC Total</span><span id="basic-total">0.00</span></div>
+            </div>
+          </div>
+          <div class="panel sef">
+            <div class="ph">SEF</div>
+            <div class="pb">
+              <div class="subhead">Current Year (2026)</div>
+              <div class="row4">
+                <div><label>Principal</label><input class="amt" id="sef_cy_principal" type="number" step="0.01"/></div>
+                <div><label>Discount (−)</label><input class="amt" id="sef_cy_discount" type="number" step="0.01"/></div>
+                <div><label>Penalty (+)</label><input class="amt" id="sef_cy_penalty" type="number" step="0.01"/></div>
+                <div><label>Net/Total Payment (auto)</label><input class="amt calc" id="sef_cy_net_payment" type="number" step="0.01" readonly tabindex="-1"/></div>
+              </div>
+              <div class="subhead" style="margin-top:14px">Prior Years</div>
+              <div class="row3">
+                <div><label>Principal</label><input class="amt" id="sef_py_principal" type="number" step="0.01"/></div>
+                <div><label>Penalty</label><input class="amt" id="sef_py_penalty" type="number" step="0.01"/></div>
+              </div>
+              <input type="hidden" id="sef_py_total"/>
+              <div class="panel-total"><span>SEF Total</span><span id="sef-total">0.00</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grand"><span>GRAND TOTAL</span><span class="amt" id="grand-total">P0.00</span></div>
+        </div><!-- /payment-only -->
+
+       <p id="cancelled-note" class="page-sub hidden" style="margin-top:8px">Cancelled property — only Receipt (OR) No. and Date Remitted are required. No amounts or taxpayer name needed.</p>
+      <p id="advance-note" class="page-sub hidden" style="margin-top:8px">Advance payment — enter Date Remitted, Control No., Date Issued, Receipt No., and Period Covered only. No amounts or taxpayer name needed.</p>
+        <div class="actions">
+          <button class="btn danger hidden" id="btn-delete">Delete</button>
+          <button class="btn ghost" id="btn-clear">Clear</button>
+          <button class="btn primary" id="btn-save">Save Record</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="view-history" class="hidden">
+      <h1 class="page-title">Payment History</h1>
+      <p class="page-sub">Click a card to view or edit the record.</p>
+      <div class="filters">
+        <input class="searchbar" id="search" placeholder="Search name, control no., receipt no., or tax dec. no..." />
+        <select id="filter-year"><option value="">All years</option></select>
+        <select id="filter-month">
+          <option value="">All months</option>
+          <option value="01">January</option><option value="02">February</option>
+          <option value="03">March</option><option value="04">April</option>
+          <option value="05">May</option><option value="06">June</option>
+          <option value="07">July</option><option value="08">August</option>
+          <option value="09">September</option><option value="10">October</option>
+          <option value="11">November</option><option value="12">December</option>
+        </select>
+      </div>
+      <div class="totals-bar" id="totals-bar">
+        <div class="tbox basic"><span class="lbl">BASIC Grand Total</span><span class="val" id="tot-basic">P0.00</span></div>
+        <div class="tbox sef"><span class="lbl">SEF Grand Total</span><span class="val" id="tot-sef">P0.00</span></div>
+        <div class="tbox all"><span class="lbl">Records</span><span class="val" id="tot-count">0</span></div>
+      </div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <!-- REPORTS -->
+    <section id="view-reports" class="hidden">
+      <h1 class="page-title">Reports</h1>
+      <p class="page-sub">Export one Excel file with BASIC and SEF combined on a single sheet, ready to print on one sheet.</p>
+      <div class="card" style="max-width:640px">
+        <div class="section-label">Select period to export</div>
+        <div class="filters">
+          <div><label>From (start date)</label><input type="date" id="rep-from"/></div>
+          <div><label>To (end date)</label><input type="date" id="rep-to"/></div>
+        </div>
+        <p class="page-sub" style="margin:14px 0">The file includes every record for the chosen period — all BASIC and SEF columns side by side, with a pink grand-total row at the bottom. Leave both blank to export all records.</p>
+        <div class="actions">
+          <button class="btn primary" id="btn-export">Export to Excel</button>
+          <button class="btn primary" id="btn-export-pdf">Export to PDF (best for printing)</button>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:640px;margin-top:18px">
+        <div class="section-label">Backup database</div>
+        <p class="page-sub" style="margin:0 0 14px">Save a copy of all your data to a USB drive or network folder. Recommended every Friday. (The app also keeps an automatic daily backup on this PC.)</p>
+        <div class="actions">
+          <button class="btn ghost" id="btn-backup">Backup Database Now</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- unsaved-changes modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3>Unsaved entries</h3>
+    <p>You have data in the form that hasn't been saved. Do you want to save it first?</p>
+    <div class="actions">
+      <button class="btn ghost" id="m-discard">Discard</button>
+      <button class="btn primary" id="m-save">Go back &amp; save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="api-web.js"></script>
+<script src="renderer.js"></script>
+</body>
+</html>
